@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title></title>
+
+  <!-- Main CSS -->
+  <link href="css/main.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container-fluid">
+    <h1>Ballot Results</h1>
+    <div id="result-table" class="row">
+
+    </div>
+
+    <h1>Manage Trustees</h1>
+    <div id="trustee-table" class="row">
+
+    </div>
+    <div id="trustee-options">
+      <input id="trustee-name" type="text" placeholder="Trustee Name" />
+      <button id="btn-add" class="btn btn-lg btn-primary" type="button">Add</button>
+      <button id="btn-remove" class="btn btn-lg btn-danger" type="button">Remove</button>
+      <p id="dashboard-err"></p>
+    </div>
+
+    <div>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse">Users That Already Voted</button>
+    </div>
+    <div id="voted-table" class="row">
+
+    </div>
+
+    <h1>Status</h1>
+    <div id="status-table" class="row">
+    </div>
+  </div>
+
+    <!-- Bootstrap core JavaScript and jQuery
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
