@@ -109,7 +109,7 @@ $(document).ready(function(){
 
   // BUTTON OPEN
   $("body").on("click", "#btn-open", function(){
-    $(this).replaceWith("<button id='btn-close' class='btn btn-lg btn-danger' type='button'>CLOSE</button>");
+    $(this).replaceWith("<button id='btn-close' class='btn btn-lg btn-warning' type='button'>CLOSE</button>");
     $.ajax({
       url: "php/open.php",
       method: "GET",
@@ -148,6 +148,23 @@ $(document).ready(function(){
       $("#status-err").text("Voting is CLOSED");
     }
   }
+
+  $("#btn-modal-continue").click(function(){
+    $.ajax({
+      url: "php/reset.php",
+      method: "POST",
+      success: function(data){
+        if(data){
+
+        }else{
+
+        }
+      },
+      dataType: "text"
+    });
+    $("#modal-reset").modal("hide");
+  });
+
 
   // Add selected class to a trustee div that has been clicked
   // Add class active to divs with class selected
@@ -276,10 +293,10 @@ $(document).ready(function(){
   function setOpen(open){
     if(open){
       $("#status-table").append("<div class='col-8 status-err'>Voting is OPEN</div>");
-      $("#status-table").append("<div class='col-4'><button id='btn-close' class='btn btn-lg btn-danger' type='button'>Close</button></div>");
+      $("#status-table").append("<div class='col-4'><button id='btn-close' class='btn btn-lg btn-warning half-fill' type='button'>Close</button><button id='btn-reset' class='btn btn-lg btn-danger half-fill' data-toggle='modal' data-target='#modal-reset'>RESET</button></div>");
     }else{
       $("#status-table").append("<div class='col-8 status-err'>Voting is CLOSED</div>");
-      $("#status-table").append("<div class='col-4'><button id='btn-open' class='btn btn-lg btn-primary' type='button'>Open</button></div>");
+      $("#status-table").append("<div class='col-4'><button id='btn-open' class='btn btn-lg btn-primary half-fill' type='button'>Open</button><button id='btn-reset' class='btn btn-lg btn-danger half-fill' data-toggle='modal' data-target='#modal-reset'>RESET</button></div>");
     }
   }
 

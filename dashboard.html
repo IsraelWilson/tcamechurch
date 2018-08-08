@@ -31,7 +31,7 @@
     </div>
 
     <div>
-      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse">Users That Already Voted</button>
+      <button class="btn-header btn-primary btn-block" type="button" data-toggle="collapse" data-target=".multi-collapse">Users That Already Voted</button>
     </div>
     <div id="voted-table" class="row">
 
@@ -39,6 +39,29 @@
 
     <h1>Status</h1>
     <div id="status-table" class="row">
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-reset" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to reset the ballot?</h5>
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              By selecting "Continue" you will erase all trustee names and close the ballot for voting.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="btn-modal-continue">Continue</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

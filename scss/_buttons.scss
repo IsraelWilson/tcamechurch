@@ -10,7 +10,10 @@
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   border: $btn-border-width solid transparent;
   @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-line-height, $btn-border-radius);
   @include transition($btn-transition);
@@ -23,7 +26,8 @@
   &:focus,
   &.focus {
     outline: 0;
-    box-shadow: $btn-focus-box-shadow;
+    -webkit-box-shadow: $btn-focus-box-shadow;
+            box-shadow: $btn-focus-box-shadow;
   }
 
   // Disabled comes first so active can properly restyle
@@ -85,16 +89,19 @@ fieldset:disabled a.btn {
 
   @include hover {
     color: $link-hover-color;
-    text-decoration: $link-hover-decoration;
+    -webkit-text-decoration: $link-hover-decoration;
+            text-decoration: $link-hover-decoration;
     background-color: transparent;
     border-color: transparent;
   }
 
   &:focus,
   &.focus {
-    text-decoration: $link-hover-decoration;
+    -webkit-text-decoration: $link-hover-decoration;
+            text-decoration: $link-hover-decoration;
     border-color: transparent;
-    box-shadow: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
   }
 
   &:disabled,
