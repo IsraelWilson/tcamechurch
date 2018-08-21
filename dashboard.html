@@ -10,59 +10,70 @@
 
   <!-- Main CSS -->
   <link href="css/main.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
 </head>
 <body>
   <div class="container-fluid">
-    <h1>Ballot Results</h1>
-    <div id="result-table" class="row">
+    <div class="row">
+      <div class="col-md-2">
+        <div id="status-table">
+        </div>
+      </div>
+      <div class="col-md-10">
+        <h1 class="header-btm mt">Ballot Results</h1>
+        <div id="result-table" class="row">
 
-    </div>
+        </div>
 
-    <h1>Manage Trustees</h1>
-    <div id="trustee-table" class="row">
-
-    </div>
-    <div id="trustee-options">
-      <input id="trustee-name" type="text" placeholder="Trustee Name" />
-      <button id="btn-add" class="btn btn-lg btn-primary" type="button">Add</button>
-      <button id="btn-remove" class="btn btn-lg btn-danger" type="button">Remove</button>
-      <p id="dashboard-err"></p>
-    </div>
-
-    <div>
-      <button class="btn-header btn-primary btn-block" type="button" data-toggle="collapse" data-target=".multi-collapse">Users That Already Voted</button>
-    </div>
-    <div id="voted-table" class="row">
-
-    </div>
-
-    <h1>Status</h1>
-    <div id="status-table" class="row">
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="modal-reset" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to reset the ballot?</h5>
-            <button type="button" class="close" data-dismiss="modal">
-              <span>&times;</span>
-            </button>
+        <h1 class="header-btm mt">Manage Trustees</h1>
+        <div id="trustee-table" class="row">
+          <div class="empty">
+            <h1>ADD AND REMOVE NAMES FROM THE BALLOT HERE</h1>
           </div>
-          <div class="modal-body">
-            <p>
-              By selecting "Continue" you will erase all trustee names and close the ballot for voting.
-            </p>
+        </div>
+        <div id="trustee-options" class="row">
+          <div class="col-md-4 offset-md-8 form-inline">
+            <div class="form-group ml-auto">
+              <input id="trustee-name" class="form-control form-control-lg" type="text" placeholder="Trustee Name" />
+              <button id="btn-add" class="btn btn-lg btn-primary pl" type="button">Add</button>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="btn-modal-continue">Continue</button>
+          <p id="dashboard-err" class="ml-auto"></p>
+        </div>
+
+        <div class="mt mb">
+          <h1 class=" header-btm pointer" data-toggle="collapse" data-target=".multi-collapse">Users That Already Voted <i class="fas fa-chevron-down"></i></h1>
+        </div>
+        <div id="voted-table" class="row">
+
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-reset" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to reset the ballot?</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                  <span>&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  By selecting "Continue" you will erase all trustee names and close the ballot for voting.
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btn-modal-continue">Continue</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 
     <!-- Bootstrap core JavaScript and jQuery

@@ -17,12 +17,12 @@ $(document).ready(function(){
           addName: trustee
         },
         success: function(data){
-          // Add name to the user interface then the database
-          addName(trustee);
 
           if(data == 0){
             $("#dashboard-err").text("name has already been added");
           }else if (data == 1) {
+            // Add name to the user interface then the database
+            addName(trustee);
             $("#dashboard-err").text("name has been added");
           }else if (data == 2) {
             $("#dashboard-err").text("trouble adding trustee");
@@ -43,9 +43,15 @@ $(document).ready(function(){
 
     // Add the name to the end of the last column
     if(row > 0){
-      $("<div class='list-group-item-container'><button type='button' class='list-group-item list-group-item-action'>" + name + "</button><button type='button' class='btn-remove'>(x)</button></div>").insertAfter($("#trustee-table .btn-remove").last().parent());
+      $("<div class='list-group-item-container'><button type='button' class='list-group-item list-group-item-action'>" + name + "</button><button type='button' class='btn-remove'><i class='fas fa-times-circle'></i></button></div>").insertAfter($("#trustee-table .btn-remove").last().parent());
     }else{
-      $("<div class='col-4'><div class='list-group'><div class='list-group-item-container'><button type='button'class='list-group-item list-group-item-action'>" + name + "</button><button type='button' class='btn-remove'>(x)</button></div></div></div>").insertAfter($("#trustee-table .col-4").last());
+      $("<div class='col-4'><div class='list-group'><div class='list-group-item-container'><button type='button'class='list-group-item list-group-item-action'>" + name + "</button><button type='button' class='btn-remove'><i class='fas fa-times-circle'></i></button></div></div></div>").insertAfter($("#trustee-table .col-4").last());
+    }
+
+    // If there are no names create first column and hide empty div
+    if($("#trustee-table .col-4").length == 0){
+      $("#trustee-table").append("<div class='col-4'><div class='list-group'><div class='list-group-item-container'><button type='button'class='list-group-item list-group-item-action'>" + name + "</button><button type='button' class='btn-remove'><i class='fas fa-times-circle'></i></button></div></div></div>");
+      $("#trustee-table .empty").css("display", "none");
     }
   }
 
@@ -62,6 +68,16 @@ $(document).ready(function(){
 
     // Remove list-item and get number of names left
     $(this).parent().remove();
+
+    // Remove this column if no more name remain in it
+    if(col.children().first().children().length == 0){
+      col.remove();
+    }
+
+    // If there are no more colums/names show empty message
+    if(!$("#trustee-table .col-4").length){
+      $("#trustee-table .empty").css("display", "block");
+    }
 
     $.ajax({
       url: "php/trustee_remove.php",
@@ -109,7 +125,7 @@ $(document).ready(function(){
 
   // BUTTON OPEN
   $("body").on("click", "#btn-open", function(){
-    $(this).replaceWith("<button id='btn-close' class='btn btn-lg btn-warning' type='button'>CLOSE</button>");
+    $(this).replaceWith("<button id='btn-close' class='btn btn-lg btn-warning btn-width-full mt mb pl pr' type='button'>CLOSE</button>");
     $.ajax({
       url: "php/open.php",
       method: "GET",
@@ -126,7 +142,7 @@ $(document).ready(function(){
 
   // BUTTON CLOSE
   $("body").on("click", "#btn-close", function(){
-    $(this).replaceWith("<button id='btn-open' class='btn btn-lg btn-success' type='button'>OPEN</button>");
+    $(this).replaceWith("<button id='btn-open' class='btn btn-lg btn-success btn-width-full mt mb pl pr' type='button'>OPEN</button>");
     $.ajax({
       url: "php/close.php",
       method: "GET",
@@ -201,15 +217,15 @@ $(document).ready(function(){
           // Else if in a set of 10
           strForm += "<div class='col-4'>";
           strForm += "<div class='list-group'>";
-          strForm += "<button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + "</button>";
+          strForm += "<button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + ": " + trustees[1][i] + "</button>";
 
           strRvmForm += "<div class='col-4'>";
           strRvmForm += "<div class='list-group'>";
-          strRvmForm += "<div class='list-group-item-container'><button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + "</button><button type='button' class='btn-remove'>(x)</button></div>";
+          strRvmForm += "<div class='list-group-item-container'><button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + "</button><button type='button' class='btn-remove'><i class='fas fa-times-circle'></i></button></div>";
         }else if (i % 10 != 0) {
-          strForm += "<button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + "</button>";
+          strForm += "<button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + ": " + trustees[1][i] + "</button>";
 
-          strRvmForm += "<div class='list-group-item-container'><button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + "</button><button type='button' class='btn-remove'>(x)</button></div>";
+          strRvmForm += "<div class='list-group-item-container'><button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + "</button><button type='button' class='btn-remove'><i class='fas fa-times-circle'></i></button></div>";
         }
 
         // If at the 10 element
@@ -292,13 +308,21 @@ $(document).ready(function(){
 
   function setOpen(open){
     if(open){
-      $("#status-table").append("<div class='col-8 status-err'>Voting is OPEN</div>");
-      $("#status-table").append("<div class='col-4'><button id='btn-close' class='btn btn-lg btn-warning half-fill' type='button'>Close</button><button id='btn-reset' class='btn btn-lg btn-danger half-fill' data-toggle='modal' data-target='#modal-reset'>RESET</button></div>");
+      // $("#status-table").append("<div class='col-8 status-err'>Voting is OPEN</div>");
+      // $("#status-table").append("<div class='col-4'><button id='btn-close' class='btn btn-lg btn-warning half-fill' type='button'>Close</button><button id='btn-reset' class='btn btn-lg btn-danger half-fill' data-toggle='modal' data-target='#modal-reset'>RESET</button></div>");
+      $("#status-table").append("<button id='btn-close' class='btn btn-lg btn-warning btn-width-full mt mb pl pr' type='button'>Close</button><button id='btn-reset' class='btn btn-lg btn-danger btn-width-full mt mb pl pr' data-toggle='modal' data-target='#modal-reset'>RESET</button>");
     }else{
-      $("#status-table").append("<div class='col-8 status-err'>Voting is CLOSED</div>");
-      $("#status-table").append("<div class='col-4'><button id='btn-open' class='btn btn-lg btn-primary half-fill' type='button'>Open</button><button id='btn-reset' class='btn btn-lg btn-danger half-fill' data-toggle='modal' data-target='#modal-reset'>RESET</button></div>");
+      // $("#status-table").append("<div class='col-8 status-err'>Voting is CLOSED</div>");
+      // $("#status-table").append("<div class='col-4'><button id='btn-open' class='btn btn-lg btn-primary half-fill' type='button'>Open</button><button id='btn-reset' class='btn btn-lg btn-danger half-fill' data-toggle='modal' data-target='#modal-reset'>RESET</button></div>");
+      $("#status-table").append("<button id='btn-open' class='btn btn-lg btn-primary btn-width-full mt mb pl pr' type='button'>Open</button><button id='btn-reset' class='btn btn-lg btn-danger btn-width-full mt mb pl pr' data-toggle='modal' data-target='#modal-reset'>RESET</button>");
+
     }
   }
+
+  $(".pointer").click(function(){
+    $("i").toggleClass("fa-chevron-down");
+    $("i").toggleClass("fa-chevron-up");
+  });
 
   // Initialize the dashboard
   function initialize(){
