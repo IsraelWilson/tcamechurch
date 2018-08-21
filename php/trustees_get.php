@@ -8,14 +8,19 @@
 require_once 'db_connect.php';
 
 // Get list of trustees and send it to the calling function
-$result = mysqli_query($con, "SELECT * FROM vote ORDER BY vote_num DESC");
-$name = array();
-$votes = array();
-while($row = mysqli_fetch_row($result)){
-  $name[] = $row[0];
-  $votes[] = $row[1];
-}
+$result = mysqli_query($con, "SELECT * FROM trustee ORDER BY votes DESC");
 
-$send = array($name, $votes);
-print json_encode($send);
+if(mysqli_num_rows($result) > 0){
+  $name = array();
+  $votes = array();
+  while($row = mysqli_fetch_row($result)){
+    $name[] = $row[0];
+    $votes[] = $row[1];
+  }
+
+  $send = array($name, $votes);
+  print json_encode($send);
+}else{
+  print 0;
+}
 ?>

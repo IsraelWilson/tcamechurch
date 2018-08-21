@@ -8,14 +8,21 @@
 require_once 'db_connect.php';
 
 // Get list of trustees and send it to the calling function
-$result = mysqli_query($con, "SELECT * FROM user");
-$uid = array();
-$voted = array();
-while($row = mysqli_fetch_row($result)){
-  $uid[] = $row[0];
-  $voted[] = $row[1];
-}
+$result = mysqli_query($con, "SELECT * FROM user WHERE voted = 1");
 
-$send = array($uid, $voted);
-print json_encode($send);
+if(mysqli_num_rows($result) > 0){
+
+  $uid = array();
+  $voted = array();
+  while($row = mysqli_fetch_row($result)){
+    $uid[] = $row[0];
+    $voted[] = $row[1];
+  }
+
+  $send = array($uid, $voted);
+  print json_encode($send);
+}else{
+
+  print 0;
+}
 ?>

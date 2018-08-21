@@ -44,14 +44,23 @@ $(document).ready(function(){
     // Add the name to the end of the last column
     if(row > 0){
       $("<div class='list-group-item-container'><button type='button' class='list-group-item list-group-item-action'>" + name + "</button><button type='button' class='btn-remove'><i class='fas fa-times-circle'></i></button></div>").insertAfter($("#trustee-table .btn-remove").last().parent());
+      $("<button type='button' class='list-group-item list-group-item-action'>" + name + ": " + "<label class='fas'>0</label></button>").insertAfter($("#result-table .list-group-item").last());
     }else{
       $("<div class='col-4'><div class='list-group'><div class='list-group-item-container'><button type='button'class='list-group-item list-group-item-action'>" + name + "</button><button type='button' class='btn-remove'><i class='fas fa-times-circle'></i></button></div></div></div>").insertAfter($("#trustee-table .col-4").last());
+      $("<div class='col-4'><div class='list-group'><button type='button' class='list-group-item list-group-item-action'>" + name + ": " + "<label class='fas'>0</label></button></div></div>").insertAfter($("#result-table .col-4").last());
     }
 
     // If there are no names create first column and hide empty div
     if($("#trustee-table .col-4").length == 0){
       $("#trustee-table").append("<div class='col-4'><div class='list-group'><div class='list-group-item-container'><button type='button'class='list-group-item list-group-item-action'>" + name + "</button><button type='button' class='btn-remove'><i class='fas fa-times-circle'></i></button></div></div></div>");
+      $("#result-table").append("<div class='col-4'><div class='list-group'><button type='button' class='list-group-item list-group-item-action'>" + name + ": " + "<label class='fas'>0</label></button></div></div>");
+
       $("#trustee-table .empty").css("display", "none");
+      $("#result-table .empty").css("display", "none");
+
+      $("#trustee-table .err-empty").remove();
+      $("#result-table .err-empty").remove();
+
     }
   }
 
@@ -59,24 +68,30 @@ $(document).ready(function(){
   // 0 == Name was successfully removed
   // 1 == An error occurred trying to remove the name
   $("body").on("click", ".btn-remove", function(){
+    var trustee = $(this).prev().text();
+
     // Get list of divs containing names and buttons
     // Get index of div whose button was clicked
     var col = $(this).parent().parent().parent();
-    var group = $(this).parent().parent();
+    var colRes = $("#result-table .list-group-item:contains('"+ trustee +"')").parent().parent();
 
-    var trustee = $(this).prev().text();
+    var group = $(this).parent().parent();
+    var groupRes = $("#result-table .list-group-item:contains('"+ trustee +"')").parent();
 
     // Remove list-item and get number of names left
     $(this).parent().remove();
+    $("#result-table .list-group-item:contains('"+ trustee +"')").remove();
 
     // Remove this column if no more name remain in it
     if(col.children().first().children().length == 0){
       col.remove();
+      colRes.remove();
     }
 
     // If there are no more colums/names show empty message
     if(!$("#trustee-table .col-4").length){
       $("#trustee-table .empty").css("display", "block");
+      $("#result-table .empty").css("display", "block");
     }
 
     $.ajax({
@@ -101,6 +116,7 @@ $(document).ready(function(){
 
     // Move elements from sequential columns down one
     collapse(col, group);
+    collapse(colRes, groupRes);
   });
 
   function collapse(col, group){
@@ -199,7 +215,7 @@ $(document).ready(function(){
         if(data){
           setTrustees(data);
         }else{
-          return 0;
+          setTrusteesEmpty();
         }
       },
       dataType: "json"
@@ -245,6 +261,11 @@ $(document).ready(function(){
     $("#trustee-table").append(strRvmForm);
   }
 
+  function setTrusteesEmpty(){
+    $("#result-table").append("<h1 class='err-empty'>THERE HAVE BEEN NO NAMES ADDED TO THE BALLOT!</h1>");
+    $("#trustee-table").append("<h1 class='err-empty'>THERE HAVE BEEN NO NAMES ADDED TO THE BALLOT!</h1>");
+  }
+
   // Get all user information
   function getUsers(){
     $.ajax({
@@ -254,7 +275,7 @@ $(document).ready(function(){
         if(data){
           setUsers(data);
         }else{
-          return 0;
+          setUsersEmpty();
         }
       },
       dataType: "json"
@@ -288,6 +309,10 @@ $(document).ready(function(){
       }
     }
     $("#voted-table").append(strForm);
+  }
+
+  function setUsersEmpty(){
+    $("#voted-table").append("<h1 class='collapse multi-collapse err-empty'>NONE OF THE USERS HAVE VOTED YET! DID YOU OPEN THE BALLOT?</h1>");
   }
 
   // Check if voting is open

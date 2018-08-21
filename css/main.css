@@ -6630,12 +6630,26 @@ body.center {
   border-bottom: 1px solid #dee2e6; }
 
 .empty {
-  display: none; }
+  display: none;
+  background-color: #A9A9A9;
+  text-align: center;
+  color: white;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 100%; }
 
 .pointer {
   cursor: pointer; }
 
 .fas {
   float: right; }
+
+.err-empty {
+  background-color: #A9A9A9;
+  text-align: center;
+  color: white;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 100%; }
 
 /*# sourceMappingURL=main.css.map */
