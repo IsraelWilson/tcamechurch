@@ -6603,6 +6603,17 @@ body.center {
 .btn-width-full {
   width: 100%; }
 
+.btn-remove {
+  border: none;
+  color: white;
+  border-radius: 4px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s; }
+
+.btn-remove:hover {
+  background-color: #A9A9A9;
+  color: white; }
+
 .mt {
   margin-top: 1.5rem; }
 

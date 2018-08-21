@@ -217,13 +217,13 @@ $(document).ready(function(){
           // Else if in a set of 10
           strForm += "<div class='col-4'>";
           strForm += "<div class='list-group'>";
-          strForm += "<button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + ": " + trustees[1][i] + "</button>";
+          strForm += "<button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + ": " + "<label class='fas'>" + trustees[1][i] + "</label></button>";
 
           strRvmForm += "<div class='col-4'>";
           strRvmForm += "<div class='list-group'>";
           strRvmForm += "<div class='list-group-item-container'><button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + "</button><button type='button' class='btn-remove'><i class='fas fa-times-circle'></i></button></div>";
         }else if (i % 10 != 0) {
-          strForm += "<button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + ": " + trustees[1][i] + "</button>";
+          strForm += "<button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + ": " + "<label class='fas'>" + trustees[1][i] + "</label></button>";
 
           strRvmForm += "<div class='list-group-item-container'><button type='button' class='list-group-item list-group-item-action'>" + trustees[0][i] + "</button><button type='button' class='btn-remove'><i class='fas fa-times-circle'></i></button></div>";
         }
